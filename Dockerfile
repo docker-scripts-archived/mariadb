@@ -13,6 +13,5 @@ CMD ["/sbin/init"]
 
 RUN apt-get update; apt-get -y upgrade
 RUN apt-get -y install rsyslog logrotate ssmtp logwatch cron vim
-RUN apt-get -y install mariadb-client
 
 WORKDIR /host
