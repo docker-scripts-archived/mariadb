@@ -14,4 +14,8 @@ cmd_create() {
         --mount type=bind,src=$(pwd)/data,dst=/var/lib/mysql \
         --mount type=bind,src=$(pwd)/run,dst=/var/run/mysqld \
         --mount type=bind,src=$(pwd)/logs,dst=/var/log/mysql
+
+    # make the command 'mariadb' global
+    mkdir -p $DSDIR/cmd/
+    cp $APP_DIR/cmd/mariadb.sh $DSDIR/cmd/
 }
