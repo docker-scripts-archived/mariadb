@@ -11,6 +11,8 @@ cmd_clone() {
     local dst=$2
     [[ -n $src && -n $dst ]] || fail "Usage:\n$(cmd_clone_help)"
 
+    echo "--> Cloning the database $src to $dst ..."
+
     # create the database
     ds exec mysql -e "
         DROP DATABASE IF EXISTS $dst;
@@ -18,5 +20,5 @@ cmd_clone() {
 
     # copy the data
     ds exec sh -c \
-        "mysqldump --allow-keywords --opt $src | mysql --database=$dst"
+        "mysqldump --allow-keywords --opt --verbose $src | mysql --database=$dst"
 }
