@@ -26,12 +26,14 @@ cmd_mariadb() {
             ds @$DBHOST exec mysql -e "$2"
             ;;
         drop)
-            ds mariadb sql "drop database if exists $DBNAME"
+            ds @$DBHOST exec mysql -e "drop database if exists $DBNAME"
             ;;
         create)
-            ds mariadb sql "
+            ds @$DBHOST exec mysql -e "
                 create database if not exists $DBNAME;
-                grant all on $DBNAME.* to '$DBUSER'@'$CONTAINER.$NETWORK' identified by '$DBPASS'; "
+                grant all privileges on $DBNAME.* to '$DBUSER'@'$CONTAINER.$NETWORK' identified by '$DBPASS';
+                flush privileges; "
+            ds @$DBHOST exec service mysql restart
             ;;
         dump)
             ds @$DBHOST exec mysqldump --allow-keywords --opt $DBNAME
