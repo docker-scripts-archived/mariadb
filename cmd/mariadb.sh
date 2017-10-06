@@ -33,7 +33,6 @@ cmd_mariadb() {
                 create database if not exists $DBNAME;
                 grant all privileges on $DBNAME.* to '$DBUSER'@'$CONTAINER.$NETWORK' identified by '$DBPASS';
                 flush privileges; "
-            ds @$DBHOST exec service mysql restart
             ;;
         dump)
             ds @$DBHOST exec mysqldump --allow-keywords --opt $DBNAME
