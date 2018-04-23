@@ -1,8 +1,7 @@
 #!/bin/bash -x
 
 # get the name of the backup file
-backup=$1
-shift
+backup=$1 ; shift
 [[ -z $backup ]] && echo "Usage: $0 <backup-name> [<dbname>...]" && exit 1
 
 # get the databases that will be archived

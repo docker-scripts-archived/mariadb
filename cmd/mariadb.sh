@@ -8,7 +8,7 @@ cmd_mariadb_help() {
               drop the database '$DBNAME'
         - dump
               dump the database '$DBNAME'
-        - backup [<dbname>...]
+        - backup <backup-file.tgz> [<dbname>...]
               backup the given databases (default '$DBNAME')
         - restore <backup-file.tgz>
               restore databases from the given backup file
@@ -45,21 +45,25 @@ cmd_mariadb() {
             ds @$DBHOST exec mysqldump --allow-keywords --opt $DBNAME
             ;;
         backup)
-            # get the backup name
-            local databases="$@"
-            databases=${databases:-$DBNAME}
-            local backup="$DBHOST-${databases// /-}-$(date +%Y%m%d)"
+            # get the backup file
+            local file=$1 ; shift
+            [[ $file == ${file%%.tgz} ]] && fail "The backup file should have the extension '.tgz'"
+            [[ -f $file ]] && fail "File '$file' already exists."
 
             # make the backup file
+            local backup="$(basename ${file%%.tgz})"
+            local databases="$@"
+            databases=${databases:-$DBNAME}
             ds @$DBHOST inject backup.sh $backup $databases
 
-            # move the backup file to the current directory
-            mv /var/ds/$DBHOST/$backup.tgz .
+            # rename the backup file
+            mkdir -p $(dirname $file)
+            mv /var/ds/$DBHOST/$backup.tgz $file
             ;;
         restore)
             # get the backup file
             local file=$1
-            [[ -f $file ]] || fail "Usage:\n$(cmd_mariadb_help)"
+            [[ -f $file ]] || fail "File '$file' does not exist."
             cp -f $file /var/ds/$DBHOST/
 
             # restore databases from the backup file
