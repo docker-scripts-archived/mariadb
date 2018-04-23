@@ -10,5 +10,4 @@ cmd_config() {
     ds inject ubuntu-fixes.sh
     ds inject set_prompt.sh
     ds inject ssmtp.sh
-    ds inject mariadb.sh
 }
