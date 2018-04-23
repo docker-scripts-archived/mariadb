@@ -12,7 +12,7 @@ apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get -y install \
     -o Dpkg::Options::="--force-confdef" \
     -o Dpkg::Options::="--force-confold" \
-    mariadb-server mariadb-client
+    mariadb-server mariadb-client mariadb-backup
 
 ### allow requests from the network
 sed -i /etc/mysql/my.cnf -e 's/^bind-address/#bind-address/'
