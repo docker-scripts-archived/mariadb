@@ -9,9 +9,7 @@ databases="$@"
 
 # make the backup
 rm -rf /host/$backup
-mariabackup \
-    --defaults-file=/etc/mysql/debian.cnf \
-    --backup \
+mariabackup --user=root --backup \
     --databases="$databases" \
     --target-dir=/host/$backup
 
