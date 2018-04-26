@@ -8,10 +8,7 @@ backup=$(basename $backup)
 # extract the archive
 cd /host/
 tar --extract --gunzip --file $backup.tgz
-mariabackup \
-    --defaults-file=/etc/mysql/debian.cnf \
-    --prepare \
-    --target-dir=$backup
+mariabackup --user=root --prepare --target-dir=$backup
 
 # remove the databases that are going to be restored
 cd $backup

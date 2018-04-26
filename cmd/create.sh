@@ -1,7 +1,7 @@
 cmd_create_help() {
     cat <<_EOF
     create
-        Create the squid container '$CONTAINER'.
+        Create the mariadb container '$CONTAINER'.
 
 _EOF
 }
