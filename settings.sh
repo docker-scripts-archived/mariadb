@@ -2,6 +2,9 @@ APP=mariadb
 
 IMAGE=mariadb
 CONTAINER=mariadb
+
+### Uncomment PORTS if you want this mariadb container
+### to be accessed from the internet.
 #PORTS="3306:3306"
 
 ### Gmail account for notifications. This will be used by ssmtp.
