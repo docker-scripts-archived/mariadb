@@ -8,6 +8,6 @@
 
   - Create a directory for the container: `ds init mariadb @mariadb`
 
-  - Fix the settings: `cd /var/ds/mariadb/ ; vim settings.sh`
+  - Fix the settings: `cd /var/ds/mariadb/ && vim settings.sh`
 
   - Build image, create the container and configure it: `ds make`
