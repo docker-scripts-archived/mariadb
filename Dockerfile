@@ -22,8 +22,9 @@ RUN apt -y install software-properties-common && \
 RUN DEBIAN_FRONTEND=noninteractive apt -y install \
         -o Dpkg::Options::="--force-confdef" \
         -o Dpkg::Options::="--force-confold" \
-         mariadb-server mariadb-client
-RUN apt -y install mariadb-backup-$MARIADB_VERSION
+        mariadb-server-$MARIADB_VERSION \
+        mariadb-client-$MARIADB_VERSION \
+        mariadb-backup-$MARIADB_VERSION
 
 ### allow requests from the network
 RUN sed -i /etc/mysql/my.cnf -e 's/^bind-address/#bind-address/'

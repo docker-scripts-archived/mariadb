@@ -1,6 +1,6 @@
 APP=mariadb
 
-IMAGE=mariadb
+IMAGE=dockerscripts/mariadb
 CONTAINER=mariadb
 
 ### Uncomment PORTS if you want this mariadb container
