@@ -1,25 +1,14 @@
-FROM ubuntu:18.04
-
-### install systemd
-RUN apt update && \
-    apt -y upgrade && \
-    apt -y install systemd && \
-    systemctl set-default multi-user.target
-
-CMD ["/sbin/init"]
-WORKDIR /host
-
-RUN apt -y install rsyslog logrotate ssmtp logwatch cron
+include(bionic)
 
 ### add mariadb repo
 ENV MARIADB_VERSION 10.2
-RUN apt -y install software-properties-common && \
+RUN apt install --yes software-properties-common && \
     apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && \
     add-apt-repository "deb [arch=amd64,i386,ppc64el] http://ftp.utexas.edu/mariadb/repo/$MARIADB_VERSION/ubuntu artful main" && \
     apt update
 
 ### install mariadb-server while keeping any existing config files unchanged
-RUN DEBIAN_FRONTEND=noninteractive apt -y install \
+RUN DEBIAN_FRONTEND=noninteractive apt install --yes \
         -o Dpkg::Options::="--force-confdef" \
         -o Dpkg::Options::="--force-confold" \
         mariadb-server-$MARIADB_VERSION \
